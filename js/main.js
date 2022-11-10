@@ -48,7 +48,7 @@ function generateBombsList (num) {
     
     return bombsList;
 
-    console.log = (bombsList);
+
 }
 
 
