@@ -16,9 +16,7 @@ function playCells( num ) {
     for (let i = 0; i < num.length; i++) {
 
         const newDiv = document.createElement("div");
-
         const numRow = Math.sqrt(num );
-
         newDiv.classList.add("cell");
         newDiv.style.width = 100 / numRow + "%";
         newDiv.textContent = i + 1;
