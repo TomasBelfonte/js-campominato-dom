@@ -4,7 +4,6 @@ body {
 }
 
 .box {
-    border: 1px solid black;
     min-height: 100vh;
     min-width: 100vh;
     margin-bottom: 100px;
@@ -19,13 +18,20 @@ body {
 
 }
 
+.active {
+    background-color: white;
+}
+
 .cell {
-    width: 50px;
+    width: 10px;
     aspect-ratio: 1/1;
-    background-color: #C6C6C6;
+    background-color: gray;
     border: 1px solid black;
 }
 
+.cell.active {
+    border: 1px solid black;
+}
 .cell.active-red {
     background-color: red;
     background-image: url(https://tenor.com/view/vyond-vyond-effect-atomic-bomb-gif-23827530);

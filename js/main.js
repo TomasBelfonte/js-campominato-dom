@@ -13,32 +13,19 @@ function playCells( num ) {
     // grigliaDinamicaEl.classList.add("d-none");
     grigliaDinamicaEl.innerHTML = "";
 
-    for (let i = 0; i < num.length; i++) {
+    for (let i = 0; i < num; i++) {
 
         const newDiv = document.createElement("div");
         const numRow = Math.sqrt(num );
         newDiv.classList.add("cell");
         newDiv.style.width = 100 / numRow + "%";
-        newDiv.textContent = i + 1;
+        // newDiv.textContent = i + 1;
         newDiv.dataset.nrCella = i + 1;
         newDiv.addEventListener("click", clickOnCell );
-        grigliaDinamicaEl.append(newDiv);        
+        grigliaDinamicaEl.append(newDiv);
     }
 
     // grigliaDinamicaEl.classList.remove("d-none");
-}
-
-function clickOnCell () {
-    this.classList.toggle( "active");
-    const nrCellaEl = +this.dataset.nrCella;
-
-    if ( bombs.include( nrCellaEl )) {
-        alert( "---- BOMBA ----" )
-        this.classList.add ("active-red")
-    }else {
-        this.classList.add ("active-blu")
-    }
-
 }
 
 function generateRandomNumber ( min, max ) {
@@ -60,4 +47,20 @@ function generateBombsList (num) {
     }
     
     return bombsList;
+
+    console.log = (bombsList);
+}
+
+
+function clickOnCell () {
+    // this.classList.toggle( "active");
+    const nrCellaEl = +this.dataset.nrCella;
+
+    if ( bombsList.includes ( nrCellaEl ) ) {
+        alert( "---- BOMBA ----" )
+        this.classList.add ("active-red")
+    } else {
+        this.classList.add ("active-blu")
+    }
+
 }
