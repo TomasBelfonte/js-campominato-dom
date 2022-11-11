@@ -7,6 +7,8 @@ let numClickEl = document.querySelector (".num-click");
 let numClick = 0;
 let boom = false;
 let bombList;
+let grigliaDinamicaEl;
+let bluGrid = grigliaDinamicaEl - bombEl;
 
 
 
@@ -73,28 +75,36 @@ function generateBombsList (num) {
 // viene verificato se viene presa la bomba e per bloccare gli imput
 function clickOnCell () {
 
+    // viene creata una costante dove viene cassegnato il dataset nr cella con valore numero (+)
     const nrCellaEl = +this.dataset.nrCella;
 
+    // verifico se viene trovata la bomba. se si, blocco le operazioni
     if (boom === true) {
         return;
     }
 
+    // verifico se l'elemento bomba è presente all'interno del numero celle, viene trovata la bomba
+    // e viene applivato il backgrounr color red con alert bomba
     if ( bombEl.includes ( nrCellaEl ) ) {
         boom = true
         this.classList.add ("active-red")
         alert( "---- BOMBA ----" )
 
-        for (j = 0; j < bombEl.length; j++) {
-        const checkBombs = document.querySelector(`.griglia-dinamica :nth-child(${bombEl [j]})`);
+        // viene creato un ciclo che va a selezionare tutte le bombe, dove se  ne viene trovata una
+        // colora di rosso tutte le altre. 
+        for (i = 0; i < bombEl.length; i++) {
+        const checkBombs = document.querySelector(`.griglia-dinamica :nth-child(${bombEl [i]})`);
         console.log(checkBombs);
         checkBombs.classList.add("bg-red");
     }
 
+    // se la bomba con viene trovata la click viene applicato un semplice background color blue. 
     } else {
         this.classList.add ("active-blu")
         numClick++;
     }
-
+    
+    // viene inserita una stringa ti desto che ndica le celle cliccate che non sono bomba
     numClickEl.innerHTML = "hai cliccato su nr " + numClick + " celle che non sono una Bomba";
     
 }
