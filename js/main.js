@@ -1,20 +1,35 @@
+
+// definisco tutte le variabili esterne
 const btnPlayEl = document.getElementById ("btn-play");
 const levelSelectedEl = document.querySelector ("[name='level-selected']");
-let bombs;
+let bombEl;
+let numClickEl = document.querySelector (".num-click");
+let numClick = 0;
+let boom = false;
+let bombList;
 
+
+
+// quando clicco sul pulsante play genero il valore del numero delle celle 
+// in base alla difficoltà scelta dall'utente.
+// genero la lista delle bombe.
+// resetto il contatore dei click e la relativa scritta dele celle.
 btnPlayEl.addEventListener( "click", function( num ) {
     const playLevel = levelSelectedEl.value; 
-
     playCells( +playLevel );
+    bombEl = generateBombsList(playLevel);
+    console.log (bombEl);
+    numClickEl.innerHTML = "";
+    numClick = 0;
+
 });
 
+// al click del pulsante Play si genera il DIV, l'elenco delle celle, lo stile delle celle
 function playCells( num ) {
     const grigliaDinamicaEl = document.querySelector( ".griglia-dinamica" );
-    // grigliaDinamicaEl.classList.add("d-none");
     grigliaDinamicaEl.innerHTML = "";
-
+    
     for (let i = 0; i < num; i++) {
-
         const newDiv = document.createElement("div");
         const numRow = Math.sqrt(num );
         newDiv.classList.add("cell");
@@ -25,16 +40,19 @@ function playCells( num ) {
         grigliaDinamicaEl.append(newDiv);
     }
 
-    // grigliaDinamicaEl.classList.remove("d-none");
 }
 
+
+// con questa funzione negono generati dei numeri random
 function generateRandomNumber ( min, max ) {
     return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
 
 }
 
+// qui viene creata la lista delle bombe 
 function generateBombsList (num) {
-    const bombsList = [];
+    
+    let bombsList = [];
 
     while ( bombsList.length < 16 ) {
 
@@ -51,16 +69,32 @@ function generateBombsList (num) {
 
 }
 
-
+// quando viene attivata la funzione viene aggiunto il dataset al nr cella
+// viene verificato se viene presa la bomba e per bloccare gli imput
 function clickOnCell () {
-    // this.classList.toggle( "active");
+
     const nrCellaEl = +this.dataset.nrCella;
 
-    if ( bombsList.includes ( nrCellaEl ) ) {
-        alert( "---- BOMBA ----" )
-        this.classList.add ("active-red")
-    } else {
-        this.classList.add ("active-blu")
+    if (boom === true) {
+        return;
     }
 
+    if ( bombEl.includes ( nrCellaEl ) ) {
+        boom = true
+        this.classList.add ("active-red")
+        alert( "---- BOMBA ----" )
+
+        for (j = 0; j < bombEl.length; j++) {
+        const checkBombs = document.querySelector(`.griglia-dinamica :nth-child(${bombEl [j]})`);
+        console.log(checkBombs);
+        checkBombs.classList.add("bg-red");
+    }
+
+    } else {
+        this.classList.add ("active-blu")
+        numClick++;
+    }
+
+    numClickEl.innerHTML = "hai cliccato su nr " + numClick + " celle che non sono una Bomba";
+    
 }

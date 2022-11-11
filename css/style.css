@@ -34,9 +34,12 @@ body {
 }
 .cell.active-red {
     background-color: red;
-    background-image: url(https://tenor.com/view/vyond-vyond-effect-atomic-bomb-gif-23827530);
 }
 
 .cell.active-blu {
     background-color: blue;
+}
+
+.bg-red {
+    background-color: red;
 }
